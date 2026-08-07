@@ -1,0 +1,198 @@
+{
+	"common": {
+		"name": "freshtomato",
+		"version": "0.7.0",
+		"news": {
+			"0.7.0": {
+				"en": "(U.R.D.L) Added WAN connection uptime and DHCP lease remaining, read from the same `stats` object the router's own status page uses\n(U.R.D.L) Added attached USB storage: one object per mounted partition with vendor, product, size, free space and mount point",
+				"de": "(U.R.D.L) WAN-Verbindungsdauer und Rest-Laufzeit der DHCP-Lease ergänzt, gelesen aus demselben `stats`-Objekt, das auch die Statusseite des Routers selbst nutzt\n(U.R.D.L) Angesteckten USB-Speicher ergänzt: ein Objekt je gemounteter Partition mit Hersteller, Produkt, Größe, freiem Speicher und Mountpoint"
+			},
+			"0.6.0": {
+				"en": "The request timeout is now a setting, 5 to 120 seconds: an older router on a slow link needed 19 s for one page, which the fixed 15 s cap could never satisfy. That page is also skipped entirely once a router has shown it accounts no traffic, which took a poll from 8.7 s to 0.1 s. A timeout on a host name now says so, since a lookup that never returns hits the same deadline. A port you set yourself survives toggling HTTPS, and setting the InfluxDB instance to disabled now switches the logging off where it was enabled. Adds a German manual covering every setting and the adapter's quirks.",
+				"de": "Das Anfrage-Timeout ist jetzt einstellbar, 5 bis 120 Sekunden: Ein älterer Router an einer langsamen Leitung brauchte 19 s für eine Seite, was die fest verdrahteten 15 s nie erfüllen konnten. Diese Seite entfällt zudem ganz, sobald ein Router gezeigt hat, dass er keinen Verkehr zählt — ein Durchlauf sank dadurch von 8,7 s auf 0,1 s. Ein Timeout bei einem Hostnamen weist nun darauf hin, dass auch eine hängende Namensauflösung in dieselbe Frist läuft. Ein selbst gesetzter Port übersteht das Umschalten von HTTPS, und die InfluxDB-Instanz auf „disabled\" zu setzen schaltet die Protokollierung dort ab, wo sie eingeschaltet wurde. Neu ist ein deutsches Handbuch zu allen Einstellungen und Eigenheiten."
+			},
+			"0.5.2": {
+				"en": "Fixes presence detection on routers that account no traffic, such as a box in access point mode. Those routers report no per-address counters at all, so wired devices could never show a live signal and were reported offline while plainly present. Presence now falls back to the router tables there, with presenceSource 'arp'. Routers that do account traffic keep the strict rules.",
+				"de": "Behebt die Anwesenheitserkennung auf Routern ohne Verkehrszählung, etwa im Access-Point-Modus. Solche Router liefern überhaupt keine Zähler je Adresse, weshalb kabelgebundene Geräte nie ein Live-Signal zeigen konnten und trotz offensichtlicher Anwesenheit als offline gemeldet wurden. Die Anwesenheit stützt sich dort nun auf die Router-Tabellen, mit presenceSource 'arp'. Router mit Verkehrszählung behalten die strengen Regeln.",
+				"ru": "Исправлено определение присутствия на маршрутизаторах без учёта трафика, например в режиме точки доступа. Такие устройства вовсе не сообщают счётчиков по адресам, поэтому проводные устройства никогда не давали «живого» сигнала и считались офлайн, хотя явно присутствовали. Теперь присутствие определяется по таблицам маршрутизатора, с presenceSource «arp». Там, где учёт есть, правила остаются строгими.",
+				"pt": "Corrige a deteção de presença em routers que não contabilizam tráfego, como um equipamento em modo ponto de acesso. Esses routers não fornecem quaisquer contadores por endereço, pelo que dispositivos com fios nunca podiam apresentar um sinal em direto e eram dados como offline apesar de estarem presentes. A presença passa a basear-se nas tabelas do router, com presenceSource 'arp'. Routers que contabilizam tráfego mantêm as regras estritas.",
+				"nl": "Lost de aanwezigheidsdetectie op bij routers zonder verkeersregistratie, bijvoorbeeld in accesspointmodus. Zulke routers melden helemaal geen tellers per adres, waardoor bedrade apparaten nooit een live-signaal konden tonen en als offline werden gemeld terwijl ze duidelijk aanwezig waren. Aanwezigheid valt daar nu terug op de routertabellen, met presenceSource 'arp'. Routers die wel tellen, houden de strikte regels.",
+				"fr": "Corrige la détection de présence sur les routeurs qui ne comptabilisent pas le trafic, par exemple en mode point d'accès. Ces routeurs ne fournissent aucun compteur par adresse, si bien que les appareils filaires ne pouvaient jamais produire de signal en direct et étaient signalés hors ligne alors qu'ils étaient manifestement présents. La présence s'appuie désormais sur les tables du routeur, avec presenceSource « arp ». Les routeurs qui comptabilisent gardent les règles strictes.",
+				"it": "Corregge il rilevamento della presenza su router che non contabilizzano il traffico, ad esempio in modalità access point. Tali router non forniscono alcun contatore per indirizzo, quindi i dispositivi cablati non potevano mai mostrare un segnale dal vivo ed erano segnalati offline pur essendo evidentemente presenti. La presenza si basa ora sulle tabelle del router, con presenceSource 'arp'. I router che contabilizzano mantengono le regole rigorose.",
+				"es": "Corrige la detección de presencia en routers que no contabilizan tráfico, por ejemplo en modo punto de acceso. Esos routers no ofrecen contadores por dirección, de modo que los dispositivos por cable nunca podían mostrar una señal en vivo y se informaban como desconectados pese a estar presentes. La presencia se apoya ahora en las tablas del router, con presenceSource 'arp'. Los routers que sí contabilizan mantienen las reglas estrictas.",
+				"pl": "Naprawia wykrywanie obecności na routerach bez rozliczania ruchu, na przykład w trybie punktu dostępowego. Takie routery nie podają żadnych liczników na adres, więc urządzenia przewodowe nigdy nie mogły dać sygnału na żywo i były zgłaszane jako offline mimo wyraźnej obecności. Obecność opiera się tam teraz na tablicach routera, z presenceSource „arp”. Routery z rozliczaniem zachowują ścisłe reguły.",
+				"uk": "Виправлено визначення присутності на маршрутизаторах без обліку трафіку, наприклад у режимі точки доступу. Такі пристрої взагалі не надають лічильників за адресами, тож дротові пристрої ніколи не могли дати «живий» сигнал і позначались офлайн, попри очевидну присутність. Тепер присутність спирається на таблиці маршрутизатора, з presenceSource «arp». Там, де облік є, правила залишаються суворими.",
+				"zh-cn": "修复了在不统计流量的路由器（例如接入点模式）上的在线检测。这类路由器完全不提供按地址的计数，因此有线设备永远无法产生实时信号，明明在线却被报告为离线。现在此类路由器改用路由表判断在线，presenceSource 为 arp。具备流量统计的路由器仍沿用严格规则。"
+			},
+			"0.5.1": {
+				"en": "Fixes an InfluxDB bookkeeping bug: if a datapoint could not be switched off because the InfluxDB instance did not answer, it was dropped from the managed list anyway and kept logging forever, unnoticed. Such datapoints now stay on the list and are retried on the next start. Also answers messages that carry no command, so a caller is never left waiting.",
+				"de": "Behebt einen Buchhaltungsfehler beim InfluxDB-Logging: Ließ sich ein Datenpunkt nicht abschalten, weil die InfluxDB-Instanz nicht antwortete, flog er trotzdem aus der Merkliste und protokollierte unbemerkt für immer weiter. Solche Datenpunkte bleiben nun auf der Liste und werden beim nächsten Start erneut versucht. Außerdem werden Nachrichten ohne Kommando beantwortet, damit kein Aufrufer hängen bleibt.",
+				"ru": "Исправлена ошибка учёта при логировании в InfluxDB: если точку данных не удавалось отключить из-за отсутствия ответа от экземпляра InfluxDB, она всё равно удалялась из списка и продолжала незаметно записываться. Теперь такие точки остаются в списке и повторяются при следующем запуске. Также обрабатываются сообщения без команды, чтобы вызывающая сторона не зависала.",
+				"pt": "Corrige um erro de contabilidade no registo InfluxDB: se um ponto de dados não pudesse ser desligado porque a instância InfluxDB não respondeu, era removido da lista mesmo assim e continuava a registar indefinidamente. Esses pontos permanecem agora na lista e são tentados de novo no arranque seguinte. Mensagens sem comando passam a ser respondidas.",
+				"nl": "Lost een boekhoudfout in de InfluxDB-logging op: kon een datapunt niet worden uitgeschakeld omdat de InfluxDB-instantie niet antwoordde, dan verdween het toch uit de lijst en bleef ongemerkt loggen. Zulke datapunten blijven nu op de lijst en worden bij de volgende start opnieuw geprobeerd. Ook berichten zonder commando krijgen nu antwoord.",
+				"fr": "Corrige une erreur de suivi dans la journalisation InfluxDB : si un point de données ne pouvait pas être désactivé faute de réponse de l'instance InfluxDB, il était tout de même retiré de la liste et continuait d'être journalisé indéfiniment. Ces points restent désormais dans la liste et sont réessayés au démarrage suivant. Les messages sans commande reçoivent aussi une réponse.",
+				"it": "Corregge un errore di tracciamento nella registrazione InfluxDB: se un punto dati non poteva essere disattivato perché l'istanza InfluxDB non rispondeva, veniva comunque rimosso dall'elenco e continuava a registrare per sempre. Tali punti restano ora nell'elenco e vengono ritentati al successivo avvio. Anche i messaggi senza comando ricevono una risposta.",
+				"es": "Corrige un error de registro contable en el logging de InfluxDB: si un punto de datos no podía desactivarse porque la instancia de InfluxDB no respondía, se eliminaba igualmente de la lista y seguía registrando para siempre. Esos puntos ahora permanecen en la lista y se reintentan en el siguiente arranque. También se responden los mensajes sin comando.",
+				"pl": "Naprawia błąd ewidencji w logowaniu do InfluxDB: jeśli punktu danych nie dało się wyłączyć, bo instancja InfluxDB nie odpowiedziała, i tak znikał z listy i logował dalej bez końca. Takie punkty pozostają teraz na liście i są ponawiane przy następnym starcie. Odpowiadane są też komunikaty bez polecenia.",
+				"uk": "Виправлено помилку обліку в логуванні до InfluxDB: якщо точку даних не вдавалося вимкнути через відсутність відповіді від екземпляра InfluxDB, вона все одно зникала зі списку й непомітно продовжувала записуватись. Тепер такі точки залишаються у списку та повторюються під час наступного запуску. Також обробляються повідомлення без команди.",
+				"zh-cn": "修复 InfluxDB 记录的账目错误：若因 InfluxDB 实例无响应而无法关闭某个数据点，它仍会被移出管理列表并在无人察觉的情况下持续记录。此类数据点现在会保留在列表中，并在下次启动时重试。另外，不带命令的消息也会得到回复，调用方不再无限等待。"
+			},
+			"0.5.0": {
+				"en": "Optional InfluxDB logging: pick an InfluxDB instance and switch on KPI groups (system, network, WLAN, device counts). The adapter enables the per-datapoint logging option on those states via the InfluxDB adapter — it never logs there itself and needs no InfluxDB credentials. A prefix is stored as each point's alias.",
+				"de": "Optionales InfluxDB-Logging: eine InfluxDB-Instanz wählen und KPI-Gruppen aktivieren (System, Netz, WLAN, Geräte-Zähler). Der Adapter aktiviert an den betreffenden Datenpunkten die Log-Option über den InfluxDB-Adapter — er loggt nie selbst dorthin und braucht keine InfluxDB-Zugangsdaten. Ein Präfix wird als Alias je Datenpunkt gespeichert.",
+				"ru": "Необязательное логирование в InfluxDB: выберите экземпляр InfluxDB и включите группы KPI (система, сеть, Wi-Fi, счётчики устройств). Адаптер включает опцию логирования на соответствующих точках данных через адаптер InfluxDB — сам туда не пишет и не требует учётных данных InfluxDB. Префикс сохраняется как псевдоним каждой точки.",
+				"pt": "Registo opcional no InfluxDB: escolha uma instância InfluxDB e ative grupos de KPI (sistema, rede, WLAN, contadores de dispositivos). O adaptador ativa a opção de registo nesses pontos de dados através do adaptador InfluxDB — nunca regista lá diretamente nem precisa de credenciais. Um prefixo é guardado como alias de cada ponto.",
+				"nl": "Optionele InfluxDB-logging: kies een InfluxDB-instantie en zet KPI-groepen aan (systeem, netwerk, WLAN, apparaattellingen). De adapter schakelt de log-optie op die datapunten in via de InfluxDB-adapter — hij logt er nooit zelf en heeft geen InfluxDB-inloggegevens nodig. Een prefix wordt als alias per datapunt opgeslagen.",
+				"fr": "Journalisation InfluxDB optionnelle : choisissez une instance InfluxDB et activez des groupes de KPI (système, réseau, WLAN, compteurs d'appareils). L'adaptateur active l'option de journalisation sur ces points de données via l'adaptateur InfluxDB — il n'y journalise jamais lui-même et ne nécessite aucun identifiant InfluxDB. Un préfixe est stocké comme alias de chaque point.",
+				"it": "Registrazione InfluxDB opzionale: scegli un'istanza InfluxDB e attiva gruppi di KPI (sistema, rete, WLAN, conteggi dispositivi). L'adattatore attiva l'opzione di registrazione su quei punti dati tramite l'adattatore InfluxDB — non registra mai direttamente e non richiede credenziali InfluxDB. Un prefisso viene salvato come alias di ogni punto.",
+				"es": "Registro opcional en InfluxDB: elige una instancia de InfluxDB y activa grupos de KPI (sistema, red, WLAN, recuentos de dispositivos). El adaptador activa la opción de registro en esos puntos de datos a través del adaptador InfluxDB — nunca registra ahí por sí mismo ni necesita credenciales de InfluxDB. Un prefijo se guarda como alias de cada punto.",
+				"pl": "Opcjonalne logowanie do InfluxDB: wybierz instancję InfluxDB i włącz grupy KPI (system, sieć, WLAN, liczniki urządzeń). Adapter włącza opcję logowania na tych punktach danych przez adapter InfluxDB — sam tam nie loguje i nie potrzebuje poświadczeń InfluxDB. Prefiks zapisywany jest jako alias każdego punktu.",
+				"uk": "Необовʼязкове логування в InfluxDB: виберіть екземпляр InfluxDB та увімкніть групи KPI (система, мережа, Wi-Fi, лічильники пристроїв). Адаптер вмикає опцію логування на відповідних точках даних через адаптер InfluxDB — сам туди не пише й не потребує облікових даних InfluxDB. Префікс зберігається як псевдонім кожної точки.",
+				"zh-cn": "可选的 InfluxDB 记录：选择一个 InfluxDB 实例并开启 KPI 分组（系统、网络、WLAN、设备计数）。适配器通过 InfluxDB 适配器在相应数据点上启用记录选项——它自身从不写入，也不需要 InfluxDB 凭据。前缀会作为每个数据点的别名保存。"
+			},
+			"0.4.0": {
+				"en": "Device presence is now judged from live signals — a wireless association or a change in traffic counters — instead of the router's ARP table, which keeps stale entries. A configurable offline timeout (default 120 s) bridges short gaps before a device is marked offline. New per-device state presenceSource shows why a device counts as present.",
+				"de": "Die Geräte-Anwesenheit wird jetzt aus Live-Signalen bestimmt — WLAN-Assoziation oder geänderte Traffic-Zähler — statt aus der ARP-Tabelle des Routers, die veraltete Einträge behält. Ein einstellbares Offline-Timeout (Standard 120 s) überbrückt kurze Lücken, bevor ein Gerät offline gesetzt wird. Neuer Datenpunkt presenceSource je Gerät zeigt, warum ein Gerät als anwesend gilt.",
+				"ru": "Присутствие устройства теперь определяется по «живым» сигналам — ассоциация Wi-Fi или изменение счётчиков трафика — вместо ARP-таблицы роутера, которая хранит устаревшие записи. Настраиваемый тайм-аут офлайна (по умолчанию 120 с) сглаживает короткие паузы. Новое состояние presenceSource показывает, почему устройство считается присутствующим.",
+				"pt": "A presença de dispositivos passa a ser avaliada por sinais em tempo real — associação Wi-Fi ou alteração dos contadores de tráfego — em vez da tabela ARP do router, que mantém entradas obsoletas. Um tempo limite de offline configurável (por omissão 120 s) cobre pausas curtas. O novo estado presenceSource mostra porque um dispositivo conta como presente.",
+				"nl": "Aanwezigheid van apparaten wordt nu bepaald uit live-signalen — een wifi-associatie of een verandering in de verkeerstellers — in plaats van de ARP-tabel van de router, die verouderde vermeldingen bewaart. Een instelbare offline-time-out (standaard 120 s) overbrugt korte gaten. De nieuwe status presenceSource laat zien waarom een apparaat als aanwezig geldt.",
+				"fr": "La présence d'un appareil est désormais évaluée à partir de signaux en direct — une association Wi-Fi ou une variation des compteurs de trafic — plutôt que de la table ARP du routeur, qui conserve des entrées périmées. Un délai hors ligne configurable (120 s par défaut) comble les courtes interruptions. Le nouvel état presenceSource indique pourquoi un appareil est considéré comme présent.",
+				"it": "La presenza dei dispositivi è ora valutata da segnali dal vivo — un'associazione Wi-Fi o una variazione dei contatori di traffico — anziché dalla tabella ARP del router, che conserva voci obsolete. Un timeout offline configurabile (120 s predefiniti) copre le brevi interruzioni. Il nuovo stato presenceSource mostra perché un dispositivo è considerato presente.",
+				"es": "La presencia de dispositivos ahora se juzga por señales en vivo — una asociación Wi-Fi o un cambio en los contadores de tráfico — en lugar de la tabla ARP del router, que conserva entradas obsoletas. Un tiempo de espera de desconexión configurable (120 s por defecto) cubre las pausas cortas. El nuevo estado presenceSource muestra por qué un dispositivo cuenta como presente.",
+				"pl": "Obecność urządzenia jest teraz oceniana na podstawie sygnałów na żywo — asocjacji Wi-Fi lub zmiany liczników ruchu — zamiast tablicy ARP routera, która przechowuje nieaktualne wpisy. Konfigurowalny limit czasu offline (domyślnie 120 s) wygładza krótkie przerwy. Nowy stan presenceSource pokazuje, dlaczego urządzenie jest uznawane za obecne.",
+				"uk": "Присутність пристрою тепер визначається за «живими» сигналами — асоціація Wi-Fi або зміна лічильників трафіку — замість ARP-таблиці маршрутизатора, яка зберігає застарілі записи. Налаштовуваний тайм-аут офлайну (за замовчуванням 120 с) згладжує короткі паузи. Новий стан presenceSource показує, чому пристрій вважається присутнім.",
+				"zh-cn": "设备在线状态现在依据实时信号判断——无线关联或流量计数变化——而不再依赖会保留过期条目的路由器 ARP 表。可配置的离线超时（默认 120 秒）可弥合短暂中断。新增的每设备状态 presenceSource 显示设备被判定为在线的原因。"
+			},
+			"0.3.0": {
+				"en": "Per-device traffic logging is now a switch in the object tree instead of a table in the settings. Each device has a writable trafficEnabled state you can toggle live, without a restart. The old MAC table is gone; an existing selection is migrated automatically.",
+				"de": "Das Verkehrs-Logging pro Gerät ist jetzt ein Schalter im Objektbaum statt einer Tabelle in den Einstellungen. Jedes Gerät hat einen schreibbaren trafficEnabled-Datenpunkt, der live und ohne Neustart umschaltbar ist. Die alte MAC-Tabelle entfällt; eine vorhandene Auswahl wird automatisch übernommen.",
+				"ru": "Учёт трафика по устройствам теперь переключатель в дереве объектов, а не таблица в настройках. У каждого устройства есть записываемое состояние trafficEnabled, переключаемое на лету без перезапуска. Старая таблица MAC удалена; существующий выбор переносится автоматически.",
+				"pt": "O registo de tráfego por dispositivo é agora um interruptor na árvore de objetos em vez de uma tabela nas definições. Cada dispositivo tem um estado gravável trafficEnabled que pode alternar em tempo real, sem reiniciar. A antiga tabela de MAC desapareceu; uma seleção existente é migrada automaticamente.",
+				"nl": "Verkeersregistratie per apparaat is nu een schakelaar in de objectboom in plaats van een tabel in de instellingen. Elk apparaat heeft een beschrijfbare trafficEnabled-status die je live kunt omschakelen, zonder herstart. De oude MAC-tabel is weg; een bestaande selectie wordt automatisch overgenomen.",
+				"fr": "La journalisation du trafic par appareil est désormais un interrupteur dans l'arbre d'objets plutôt qu'un tableau dans les paramètres. Chaque appareil possède un état trafficEnabled inscriptible, modifiable en direct sans redémarrage. L'ancien tableau des adresses MAC a disparu ; une sélection existante est migrée automatiquement.",
+				"it": "La registrazione del traffico per dispositivo è ora un interruttore nell'albero degli oggetti anziché una tabella nelle impostazioni. Ogni dispositivo ha uno stato scrivibile trafficEnabled commutabile al volo, senza riavvio. La vecchia tabella dei MAC è stata rimossa; una selezione esistente viene migrata automaticamente.",
+				"es": "El registro de tráfico por dispositivo ahora es un interruptor en el árbol de objetos en lugar de una tabla en los ajustes. Cada dispositivo tiene un estado escribible trafficEnabled que puedes conmutar en vivo, sin reiniciar. La antigua tabla de MAC desaparece; una selección existente se migra automáticamente.",
+				"pl": "Rejestrowanie ruchu na urządzenie to teraz przełącznik w drzewie obiektów zamiast tabeli w ustawieniach. Każde urządzenie ma zapisywalny stan trafficEnabled, przełączany na żywo bez restartu. Stara tabela MAC znika; istniejący wybór jest migrowany automatycznie.",
+				"uk": "Облік трафіку по пристроях тепер перемикач у дереві об'єктів, а не таблиця в налаштуваннях. Кожен пристрій має записуваний стан trafficEnabled, який перемикається наживо без перезапуску. Стару таблицю MAC видалено; наявний вибір переноситься автоматично.",
+				"zh-cn": "按设备的流量记录现在是对象树中的开关，而不再是设置中的表格。每台设备都有一个可写的 trafficEnabled 状态，可实时切换，无需重启。旧的 MAC 表已移除；已有的选择会自动迁移。"
+			}
+		},
+		"titleLang": {
+			"en": "FreshTomato",
+			"de": "FrischeTomate",
+			"ru": "СвежийПомидор",
+			"pt": "Tomate Fresco",
+			"nl": "VerseTomaat",
+			"fr": "Tomate Fraîche",
+			"it": "Pomodoro Fresco",
+			"es": "tomate fresco",
+			"pl": "ŚwieżyPomidor",
+			"uk": "FreshTomato",
+			"zh-cn": "新鲜番茄"
+		},
+		"desc": {
+			"en": "Monitor and control FreshTomato based routers via their local HTTP API",
+			"de": "Überwachen und steuern Sie FreshTomato-basierte Router über ihre lokale HTTP-API",
+			"ru": "Мониторинг и управление маршрутизаторами на базе FreshTomato через их локальный HTTP API.",
+			"pt": "Monitore e controle roteadores baseados em FreshTomato por meio de sua API HTTP local",
+			"nl": "Bewaak en beheer op FreshTomato gebaseerde routers via hun lokale HTTP API",
+			"fr": "Surveillez et contrôlez les routeurs basés sur FreshTomato via leur API HTTP locale",
+			"it": "Monitora e controlla i router basati su FreshTomato tramite la loro API HTTP locale",
+			"es": "Supervise y controle los enrutadores basados ​​en FreshTomato a través de su API HTTP local",
+			"pl": "Monitoruj i kontroluj routery oparte na FreshTomato za pośrednictwem lokalnego interfejsu API HTTP",
+			"uk": "Відстежуйте та керуйте маршрутизаторами на основі FreshTomato через їх локальний HTTP API",
+			"zh-cn": "通过本地 HTTP API 监视和控制基于 FreshTomato 的路由器"
+		},
+		"authors": [
+			"U.R.D.L"
+		],
+		"keywords": [
+			"freshtomato",
+			"tomato",
+			"router",
+			"network",
+			"netgear"
+		],
+		"licenseInformation": {
+			"type": "free",
+			"license": "MIT"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "freshtomato.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/urdl/iobroker.freshtomato/main/admin/freshtomato.png",
+		"readme": "https://github.com/urdl/iobroker.freshtomato/blob/main/README.md",
+		"loglevel": "info",
+		"tier": 3,
+		"mode": "daemon",
+		"type": "network",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=7.0.23"
+			}
+		]
+	},
+	"native": {
+		"host": "",
+		"port": 80,
+		"https": false,
+		"allowSelfSigned": false,
+		"username": "root",
+		"password": "",
+		"httpId": "",
+		"pollInterval": 30,
+		"requestTimeout": 15,
+		"offlineTimeout": 120,
+		"createDeviceObjects": true,
+		"allowReboot": false,
+		"influxInstance": "",
+		"influxPrefix": "",
+		"logSystem": false,
+		"logNetwork": false,
+		"logWlan": false,
+		"logDeviceCounts": false
+	},
+	"encryptedNative": [
+		"password",
+		"httpId"
+	],
+	"protectedNative": [
+		"password",
+		"httpId"
+	],
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
+}
