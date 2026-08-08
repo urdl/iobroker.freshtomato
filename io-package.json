@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "freshtomato",
-		"version": "0.7.0",
+		"version": "0.7.1",
 		"news": {
+			"0.7.1": {
+				"en": "(U.R.D.L) Fixed: a router without USB/NAS support was misdiagnosed as having a wrong HTTP ID, because that call answers with an empty body when there is nothing to report and every other call was expected to never do that",
+				"de": "Fix: Ein Router ohne USB/NAS-Unterstützung wurde fälschlich als \"HTTP-ID falsch\" gemeldet — dieser Aufruf antwortet mit leerem Body, wenn es nichts zu melden gibt, während ein leerer Body bei allen anderen Aufrufen weiterhin zurecht auf eine falsche HTTP-ID hindeutet"
+			},
 			"0.7.0": {
 				"en": "(U.R.D.L) Added WAN connection uptime and DHCP lease remaining, read from the same `stats` object the router's own status page uses\n(U.R.D.L) Added attached USB storage: one object per mounted partition with vendor, product, size, free space and mount point",
 				"de": "(U.R.D.L) WAN-Verbindungsdauer und Rest-Laufzeit der DHCP-Lease ergänzt, gelesen aus demselben `stats`-Objekt, das auch die Statusseite des Routers selbst nutzt\n(U.R.D.L) Angesteckten USB-Speicher ergänzt: ein Objekt je gemounteter Partition mit Hersteller, Produkt, Größe, freiem Speicher und Mountpoint"
@@ -62,19 +66,6 @@
 				"pl": "Obecność urządzenia jest teraz oceniana na podstawie sygnałów na żywo — asocjacji Wi-Fi lub zmiany liczników ruchu — zamiast tablicy ARP routera, która przechowuje nieaktualne wpisy. Konfigurowalny limit czasu offline (domyślnie 120 s) wygładza krótkie przerwy. Nowy stan presenceSource pokazuje, dlaczego urządzenie jest uznawane za obecne.",
 				"uk": "Присутність пристрою тепер визначається за «живими» сигналами — асоціація Wi-Fi або зміна лічильників трафіку — замість ARP-таблиці маршрутизатора, яка зберігає застарілі записи. Налаштовуваний тайм-аут офлайну (за замовчуванням 120 с) згладжує короткі паузи. Новий стан presenceSource показує, чому пристрій вважається присутнім.",
 				"zh-cn": "设备在线状态现在依据实时信号判断——无线关联或流量计数变化——而不再依赖会保留过期条目的路由器 ARP 表。可配置的离线超时（默认 120 秒）可弥合短暂中断。新增的每设备状态 presenceSource 显示设备被判定为在线的原因。"
-			},
-			"0.3.0": {
-				"en": "Per-device traffic logging is now a switch in the object tree instead of a table in the settings. Each device has a writable trafficEnabled state you can toggle live, without a restart. The old MAC table is gone; an existing selection is migrated automatically.",
-				"de": "Das Verkehrs-Logging pro Gerät ist jetzt ein Schalter im Objektbaum statt einer Tabelle in den Einstellungen. Jedes Gerät hat einen schreibbaren trafficEnabled-Datenpunkt, der live und ohne Neustart umschaltbar ist. Die alte MAC-Tabelle entfällt; eine vorhandene Auswahl wird automatisch übernommen.",
-				"ru": "Учёт трафика по устройствам теперь переключатель в дереве объектов, а не таблица в настройках. У каждого устройства есть записываемое состояние trafficEnabled, переключаемое на лету без перезапуска. Старая таблица MAC удалена; существующий выбор переносится автоматически.",
-				"pt": "O registo de tráfego por dispositivo é agora um interruptor na árvore de objetos em vez de uma tabela nas definições. Cada dispositivo tem um estado gravável trafficEnabled que pode alternar em tempo real, sem reiniciar. A antiga tabela de MAC desapareceu; uma seleção existente é migrada automaticamente.",
-				"nl": "Verkeersregistratie per apparaat is nu een schakelaar in de objectboom in plaats van een tabel in de instellingen. Elk apparaat heeft een beschrijfbare trafficEnabled-status die je live kunt omschakelen, zonder herstart. De oude MAC-tabel is weg; een bestaande selectie wordt automatisch overgenomen.",
-				"fr": "La journalisation du trafic par appareil est désormais un interrupteur dans l'arbre d'objets plutôt qu'un tableau dans les paramètres. Chaque appareil possède un état trafficEnabled inscriptible, modifiable en direct sans redémarrage. L'ancien tableau des adresses MAC a disparu ; une sélection existante est migrée automatiquement.",
-				"it": "La registrazione del traffico per dispositivo è ora un interruttore nell'albero degli oggetti anziché una tabella nelle impostazioni. Ogni dispositivo ha uno stato scrivibile trafficEnabled commutabile al volo, senza riavvio. La vecchia tabella dei MAC è stata rimossa; una selezione esistente viene migrata automaticamente.",
-				"es": "El registro de tráfico por dispositivo ahora es un interruptor en el árbol de objetos en lugar de una tabla en los ajustes. Cada dispositivo tiene un estado escribible trafficEnabled que puedes conmutar en vivo, sin reiniciar. La antigua tabla de MAC desaparece; una selección existente se migra automáticamente.",
-				"pl": "Rejestrowanie ruchu na urządzenie to teraz przełącznik w drzewie obiektów zamiast tabeli w ustawieniach. Każde urządzenie ma zapisywalny stan trafficEnabled, przełączany na żywo bez restartu. Stara tabela MAC znika; istniejący wybór jest migrowany automatycznie.",
-				"uk": "Облік трафіку по пристроях тепер перемикач у дереві об'єктів, а не таблиця в налаштуваннях. Кожен пристрій має записуваний стан trafficEnabled, який перемикається наживо без перезапуску. Стару таблицю MAC видалено; наявний вибір переноситься автоматично.",
-				"zh-cn": "按设备的流量记录现在是对象树中的开关，而不再是设置中的表格。每台设备都有一个可写的 trafficEnabled 状态，可实时切换，无需重启。旧的 MAC 表已移除；已有的选择会自动迁移。"
 			}
 		},
 		"titleLang": {

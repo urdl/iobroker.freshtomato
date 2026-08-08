@@ -356,6 +356,9 @@ to the upstream project, which targets a different range of devices.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### 0.7.1 (2026-08-08)
+* (U.R.D.L) Fixed: a router without USB/NAS support was misdiagnosed as having a wrong HTTP ID, because that call answers with an empty body when there is nothing to report and every other call was expected to never do that
+
 ### 0.7.0 (2026-08-07)
 * (U.R.D.L) Added WAN connection uptime and DHCP lease remaining, read from the same `stats` object the router's own status page uses
 * (U.R.D.L) Added attached USB storage: one object per mounted partition with vendor, product, size, free space and mount point
