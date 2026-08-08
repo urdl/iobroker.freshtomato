@@ -1,6 +1,6 @@
 {
   "name": "iobroker.freshtomato",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Monitor and control FreshTomato based routers via their local HTTP API",
   "author": {
     "name": "U.R.D.L"

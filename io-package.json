@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "freshtomato",
-		"version": "0.7.1",
+		"version": "0.7.2",
 		"news": {
+			"0.7.2": {
+				"en": "(U.R.D.L) Replaced the scaffold placeholder icon with an actual logo\n(U.R.D.L) Fixed: the product name was machine-translated per language instead of staying \"FreshTomato\" everywhere",
+				"de": "(U.R.D.L) Platzhalter-Icon aus dem Scaffold durch ein echtes Logo ersetzt\n(U.R.D.L) Fix: Der Produktname wurde je Sprache automatisch übersetzt, statt überall \"FreshTomato\" zu bleiben"
+			},
 			"0.7.1": {
 				"en": "(U.R.D.L) Fixed: a router without USB/NAS support was misdiagnosed as having a wrong HTTP ID, because that call answers with an empty body when there is nothing to report and every other call was expected to never do that",
 				"de": "Fix: Ein Router ohne USB/NAS-Unterstützung wurde fälschlich als \"HTTP-ID falsch\" gemeldet — dieser Aufruf antwortet mit leerem Body, wenn es nichts zu melden gibt, während ein leerer Body bei allen anderen Aufrufen weiterhin zurecht auf eine falsche HTTP-ID hindeutet"
@@ -70,16 +74,16 @@
 		},
 		"titleLang": {
 			"en": "FreshTomato",
-			"de": "FrischeTomate",
-			"ru": "СвежийПомидор",
-			"pt": "Tomate Fresco",
-			"nl": "VerseTomaat",
-			"fr": "Tomate Fraîche",
-			"it": "Pomodoro Fresco",
-			"es": "tomate fresco",
-			"pl": "ŚwieżyPomidor",
+			"de": "FreshTomato",
+			"ru": "FreshTomato",
+			"pt": "FreshTomato",
+			"nl": "FreshTomato",
+			"fr": "FreshTomato",
+			"it": "FreshTomato",
+			"es": "FreshTomato",
+			"pl": "FreshTomato",
 			"uk": "FreshTomato",
-			"zh-cn": "新鲜番茄"
+			"zh-cn": "FreshTomato"
 		},
 		"desc": {
 			"en": "Monitor and control FreshTomato based routers via their local HTTP API",

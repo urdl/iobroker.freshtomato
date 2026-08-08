@@ -356,6 +356,10 @@ to the upstream project, which targets a different range of devices.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### 0.7.2 (2026-08-08)
+* (U.R.D.L) Replaced the scaffold placeholder icon with an actual logo
+* (U.R.D.L) Fixed: the product name was machine-translated per language instead of staying "FreshTomato" everywhere
+
 ### 0.7.1 (2026-08-08)
 * (U.R.D.L) Fixed: a router without USB/NAS support was misdiagnosed as having a wrong HTTP ID, because that call answers with an empty body when there is nothing to report and every other call was expected to never do that
 
