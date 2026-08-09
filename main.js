@@ -6,7 +6,7 @@
 
 const utils = require('@iobroker/adapter-core');
 const { FreshTomatoClient, FreshTomatoError } = require('./lib/client');
-const { buildModel, buildTraffic, rateFrom, influxTargets, influxAlias } = require('./lib/model');
+const { buildModel, buildTraffic, rateFrom, cpuUsageFromJiffies, influxTargets, influxAlias } = require('./lib/model');
 const { createRedactor, redact } = require('./lib/redact');
 
 /** Poll interval bounds in seconds, mirroring what the admin UI allows. */
@@ -89,6 +89,8 @@ class Freshtomato extends utils.Adapter {
 		this.unloaded = false;
 		/** Firmware version, read once. null means the router did not report one. */
 		this.firmware = undefined;
+		/** sysinfo.jiffies from the previous poll, for deriving CPU usage. */
+		this.prevJiffies = undefined;
 		// Replaced in onReady once the configured secrets are known. Until then
 		// the pattern-only redactor applies, so nothing is logged unfiltered.
 		this.redact = redact;
@@ -353,6 +355,7 @@ class Freshtomato extends utils.Adapter {
 		await this.ensureContainer('system', 'channel', 'System');
 		const system = [
 			['cpuTemperature', 'CPU temperature', 'number', 'value.temperature', '°C'],
+			['cpuUsage', 'CPU usage', 'number', 'value', '%'],
 			['load1', 'Load average, 1 minute', 'number', 'value'],
 			['load5', 'Load average, 5 minutes', 'number', 'value'],
 			['load15', 'Load average, 15 minutes', 'number', 'value'],
@@ -405,6 +408,8 @@ class Freshtomato extends utils.Adapter {
 		await this.ensureContainer('devices', 'device', 'Connected devices');
 		await this.ensureState('devices.count', 'Connected devices', 'number', 'value');
 		await this.ensureState('devices.wirelessCount', 'Wireless clients', 'number', 'value');
+		await this.ensureState('devices.onlineCount', 'Devices currently online', 'number', 'value');
+		await this.ensureState('devices.offlineCount', 'Known devices currently offline', 'number', 'value');
 		await this.ensureState('devices.json', 'Connected devices as JSON', 'string', 'json');
 
 		// Records which datapoints this adapter switched on for InfluxDB, so the
@@ -676,6 +681,13 @@ class Freshtomato extends utils.Adapter {
 			});
 
 			this.warnAboutMissingTemperatures(statusData.sysinfo, model.radios);
+
+			// Usage needs two samples, so this stays null on the first poll after
+			// a restart; buildModel() cannot do this itself, since jiffies is
+			// adapter state carried between polls rather than a router value.
+			const currentJiffies = statusData.sysinfo && statusData.sysinfo.jiffies;
+			model.system.cpuUsage = cpuUsageFromJiffies(this.prevJiffies, currentJiffies);
+			this.prevJiffies = currentJiffies;
 
 			// Built once and shared: publish() uses it to judge presence, and
 			// publishTraffic() uses it to write counters for selected devices.
@@ -994,6 +1006,12 @@ class Freshtomato extends utils.Adapter {
 		}
 		const trafficAvailable = this.trafficAvailable !== false;
 
+		// Counts devices whose online state this poll resolves to true, across
+		// both loops below, so the aggregate below reflects the same judgment
+		// that was just written to each device's own state rather than a second,
+		// possibly inconsistent read of it.
+		let onlineCount = 0;
+
 		// Per device channels are optional, but the offline marking below is not:
 		// switching the option off after a run would otherwise leave every
 		// existing channel stuck at online = true forever.
@@ -1049,6 +1067,9 @@ class Freshtomato extends utils.Adapter {
 			}
 			await this.write(`devices.${device.id}.online`, online);
 			await this.write(`devices.${device.id}.presenceSource`, source);
+			if (online) {
+				onlineCount++;
+			}
 		}
 
 		// Devices that dropped out of the router tables entirely. Their objects
@@ -1073,7 +1094,17 @@ class Freshtomato extends utils.Adapter {
 			const online = last !== undefined && now - last <= this.offlineTimeoutMs;
 			await this.write(`devices.${id}.online`, online);
 			await this.write(`devices.${id}.presenceSource`, online ? 'grace' : 'offline');
+			if (online) {
+				onlineCount++;
+			}
 		}
+
+		// this.knownDevices covers every device ever seen, including ones that
+		// dropped out of the router tables entirely, so it is the right
+		// denominator for "offline" rather than model.deviceCount, which only
+		// counts what is in the router tables on this particular poll.
+		await this.write('devices.onlineCount', onlineCount);
+		await this.write('devices.offlineCount', this.knownDevices.size - onlineCount);
 	}
 
 	/**
