@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "freshtomato",
-		"version": "0.8.0",
+		"version": "0.8.1",
 		"news": {
+			"0.8.1": {
+				"en": "(U.R.D.L) Fixed: the InfluxDB deviceCounts group was missing the onlineCount/offlineCount states added in 0.8.0",
+				"de": "(U.R.D.L) Fix: Der InfluxDB-KPI-Gruppe deviceCounts fehlten die in 0.8.0 hinzugefügten Zustände onlineCount/offlineCount"
+			},
 			"0.8.0": {
 				"en": "(U.R.D.L) Added CPU usage as a percentage, derived from two `sysinfo.jiffies` samples\n(U.R.D.L) Added `devices.onlineCount`/`devices.offlineCount`, an aggregate over the existing per-device presence states",
 				"de": "(U.R.D.L) Hinzugefügte CPU-Auslastung als Prozentsatz, abgeleitet von zwei \"sysinfo.jiffies\" -Samples\n(U.R.D.L) Hinzugefügt `devices.onlineCount`/`devices.offlineCount`, ein Aggregat über die vorhandenen Präsenzzustände pro Gerät",

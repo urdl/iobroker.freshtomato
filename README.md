@@ -356,6 +356,9 @@ to the upstream project, which targets a different range of devices.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### 0.8.1 (2026-08-09)
+* (U.R.D.L) Fixed: the InfluxDB `deviceCounts` group was missing the `onlineCount`/`offlineCount` states added in 0.8.0
+
 ### 0.8.0 (2026-08-09)
 * (U.R.D.L) Added CPU usage as a percentage, derived from two `sysinfo.jiffies` samples
 * (U.R.D.L) Added `devices.onlineCount`/`devices.offlineCount`, an aggregate over the existing per-device presence states
