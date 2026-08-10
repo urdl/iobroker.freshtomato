@@ -169,10 +169,10 @@ Siehe [Steuerung](#steuerung) — dort steht, warum das doppelt abgesichert ist.
 |---|---|---|
 | **InfluxDB instance** | disabled | Welche InfluxDB-Adapter-Instanz die Werte aufzeichnet. |
 | **Datapoint prefix** | – | Wird als Alias je Datenpunkt gesetzt: `<präfix>.system.load1`. Leer = echter Datenpunktname. |
-| **Log system KPIs** | aus | CPU-Temperatur, Lastmittelwerte, Speicher. |
+| **Log system KPIs** | aus | CPU-Temperatur, CPU-Auslastung, Lastmittelwerte, Speicher. |
 | **Log network KPIs** | aus | `rxBytes`/`txBytes` je Schnittstelle, WAN erreichbar. |
 | **Log WLAN KPIs** | aus | Clientzahl, Radio-Temperatur, Rauschpegel je Band. |
-| **Log device counts** | aus | `devices.count`, `devices.wirelessCount`. |
+| **Log device counts** | aus | `devices.count`, `devices.wirelessCount`, `devices.onlineCount`, `devices.offlineCount`. |
 
 > 📷 **Screenshot einfügen:** `docs/de/img/einstellungen-influxdb.png` —
 > der InfluxDB-Abschnitt mit ausgeklappter Instanzauswahl.
@@ -186,14 +186,14 @@ Ausführlich unter [InfluxDB-Protokollierung](#influxdb-protokollierung).
 | Zweig | Inhalt |
 |---|---|
 | `info` | `connection`, `firmware`, `model`, `routerName`, `uptime`, `uptimeText`, `lastUpdate`, `influxManaged` |
-| `system` | CPU-Temperatur, Lastmittelwerte, Speicher, Swap, NVRAM-Belegung, Prozesse, CPU- und Bootloader-Angaben, **`reboot`** |
+| `system` | CPU-Temperatur, CPU-Auslastung, Lastmittelwerte, Speicher, Swap, NVRAM-Belegung, Prozesse, CPU- und Bootloader-Angaben, **`reboot`** |
 | `network.wan`, `network.wan2` … | IP, Netzmaske, Gateway, DNS, Domain, Hostname, Protokoll, MAC, MTU, `connected`, `uptime` (Verbindungsdauer), `leaseRemaining` (Rest-Laufzeit der WAN-DHCP-Lease), **`renewLease`**. Nur tatsächlich genutzte WANs werden angelegt. |
 | `network.lan` | IP, Netzmaske, MAC, Gateway, Bridge-Schnittstelle, DHCP-Bereich |
 | `wlan.2G`, `wlan.5G` | SSID, Kanal, Mittenfrequenz, Kanalbreite, Maximalrate, Rauschpegel, Radio-Temperatur, Sicherheitsmodus, Verschlüsselung, versteckt, Clientzahl, **`radioEnabled`** |
 | `interfaces.<name>` | `rxBytes`, `txBytes` je Schnittstelle |
 | `ports.<name>` | Verbindungsstatus, Geschwindigkeit, Duplex je Switch-Port |
 | `usb.<disk+partition>` | Hersteller, Produkt, Disk, Partitionsnummer, Datenträgername, Mountpoint, Dateisystem, Größe gesamt/frei/belegt, Prozent belegt, `attached`. Ein Eintrag je gemounteter Partition; beim Abziehen bleiben die Größenangaben stehen, nur `attached` wird `false`. |
-| `devices` | `count`, `wirelessCount`, `json` |
+| `devices` | `count`, `wirelessCount`, `onlineCount`, `offlineCount`, `json` |
 | `devices.<mac>` | siehe unten |
 
 **Fett** = beschreibbar.
@@ -416,10 +416,10 @@ Adapter heraus.
 
 | Gruppe | Datenpunkte |
 |---|---|
-| System | CPU-Temperatur, Lastmittelwerte, freier/verfügbarer/gesamter Speicher |
+| System | CPU-Temperatur, CPU-Auslastung, Lastmittelwerte, freier/verfügbarer/gesamter Speicher |
 | Netz | `rxBytes`/`txBytes` je Schnittstelle, WAN `connected` |
 | WLAN | Clientzahl, Radio-Temperatur, Rauschpegel je Band |
-| Geräte-Zähler | `devices.count`, `devices.wirelessCount` |
+| Geräte-Zähler | `devices.count`, `devices.wirelessCount`, `devices.onlineCount`, `devices.offlineCount` |
 
 **Verkehr pro Gerät ist bewusst nicht dabei** — er ist dynamisch und ergäbe
 eine Zeitreihe je Gerät. Wer ihn braucht, aktiviert ihn einzeln am jeweiligen

@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "freshtomato",
-		"version": "0.8.1",
+		"version": "0.8.2",
 		"news": {
+			"0.8.2": {
+				"en": "(U.R.D.L) Fixed: `common.messagebox` was never declared in `io-package.json`, so the InfluxDB instance dropdown (#50) never actually loaded, regardless of instance state",
+				"de": "(U.R.D.L) Fixed: `common.messagebox` wurde nie in `io-package.json` deklariert, so dass die InfluxDB-Instanz-Dropdown (#50) nie wirklich geladen wurde, unabhängig vom Instanzzustand",
+				"ru": "(U.R.D.L) Исправлено: «common.messagebox» никогда не был объявлен в «io-package.json», поэтому выпадающий экземпляр InfluxDB (#50) никогда фактически не загружался, независимо от состояния экземпляра",
+				"pt": "(U.R.D.L) Corrigido: `common.messagebox` nunca foi declarado em `io-package.json`, então o dropdown de instância do InfluxDB (#50) nunca foi carregado, independentemente do estado da instância",
+				"nl": "(U.R.D.L) Fixed: ",
+				"fr": "(U.R.D.L) Correction: `common.messagebox` n'a jamais été déclaré dans `io-package.json`, de sorte que le menu déroulant de l'instance InfluxDB (#50) n'a jamais été chargé, quel que soit l'état de l'instance",
+				"it": "(U.R.D.L) Risolto: `common.messagebox` non è mai stato dichiarato in `io-package.json`, quindi l'istanza InfluxDB dropdown (#50) mai realmente caricato, indipendentemente dallo stato di caso",
+				"es": "(U.R.D.L) Arreglado: `common.messagebox` nunca fue declarado en `io-package.json`, por lo que la caída de instancia InfluxDB (#50) nunca se cargó, independientemente de la instancia estatal",
+				"pl": "(U.R.D.L) Naprawiono: 'common .messagebox' nigdy nie został zadeklarowany w 'io- package.json', więc instancja InfluxDB nigdy nie została załadowana, niezależnie od stanu instancji",
+				"uk": "(U.R.D.L) Виправлено: `common.messagebox` ніколи не був оголошений в `io-package.json`, так що інфлюксDB не завантажується, незалежно від того, як держава",
+				"zh-cn": "(U.R.D.L) 固定:`common.messagebox ' 从未在`io-package.json ' 中被宣布,因此,不管实例状态如何,InfluxDB实例下降(#50)从未实际加载"
+			},
 			"0.8.1": {
 				"en": "(U.R.D.L) Fixed: the InfluxDB deviceCounts group was missing the onlineCount/offlineCount states added in 0.8.0",
 				"de": "(U.R.D.L) Fix: Der InfluxDB-KPI-Gruppe deviceCounts fehlten die in 0.8.0 hinzugefügten Zustände onlineCount/offlineCount"
@@ -35,32 +48,6 @@
 			"0.6.0": {
 				"en": "The request timeout is now a setting, 5 to 120 seconds: an older router on a slow link needed 19 s for one page, which the fixed 15 s cap could never satisfy. That page is also skipped entirely once a router has shown it accounts no traffic, which took a poll from 8.7 s to 0.1 s. A timeout on a host name now says so, since a lookup that never returns hits the same deadline. A port you set yourself survives toggling HTTPS, and setting the InfluxDB instance to disabled now switches the logging off where it was enabled. Adds a German manual covering every setting and the adapter's quirks.",
 				"de": "Das Anfrage-Timeout ist jetzt einstellbar, 5 bis 120 Sekunden: Ein älterer Router an einer langsamen Leitung brauchte 19 s für eine Seite, was die fest verdrahteten 15 s nie erfüllen konnten. Diese Seite entfällt zudem ganz, sobald ein Router gezeigt hat, dass er keinen Verkehr zählt — ein Durchlauf sank dadurch von 8,7 s auf 0,1 s. Ein Timeout bei einem Hostnamen weist nun darauf hin, dass auch eine hängende Namensauflösung in dieselbe Frist läuft. Ein selbst gesetzter Port übersteht das Umschalten von HTTPS, und die InfluxDB-Instanz auf „disabled\" zu setzen schaltet die Protokollierung dort ab, wo sie eingeschaltet wurde. Neu ist ein deutsches Handbuch zu allen Einstellungen und Eigenheiten."
-			},
-			"0.5.2": {
-				"en": "Fixes presence detection on routers that account no traffic, such as a box in access point mode. Those routers report no per-address counters at all, so wired devices could never show a live signal and were reported offline while plainly present. Presence now falls back to the router tables there, with presenceSource 'arp'. Routers that do account traffic keep the strict rules.",
-				"de": "Behebt die Anwesenheitserkennung auf Routern ohne Verkehrszählung, etwa im Access-Point-Modus. Solche Router liefern überhaupt keine Zähler je Adresse, weshalb kabelgebundene Geräte nie ein Live-Signal zeigen konnten und trotz offensichtlicher Anwesenheit als offline gemeldet wurden. Die Anwesenheit stützt sich dort nun auf die Router-Tabellen, mit presenceSource 'arp'. Router mit Verkehrszählung behalten die strengen Regeln.",
-				"ru": "Исправлено определение присутствия на маршрутизаторах без учёта трафика, например в режиме точки доступа. Такие устройства вовсе не сообщают счётчиков по адресам, поэтому проводные устройства никогда не давали «живого» сигнала и считались офлайн, хотя явно присутствовали. Теперь присутствие определяется по таблицам маршрутизатора, с presenceSource «arp». Там, где учёт есть, правила остаются строгими.",
-				"pt": "Corrige a deteção de presença em routers que não contabilizam tráfego, como um equipamento em modo ponto de acesso. Esses routers não fornecem quaisquer contadores por endereço, pelo que dispositivos com fios nunca podiam apresentar um sinal em direto e eram dados como offline apesar de estarem presentes. A presença passa a basear-se nas tabelas do router, com presenceSource 'arp'. Routers que contabilizam tráfego mantêm as regras estritas.",
-				"nl": "Lost de aanwezigheidsdetectie op bij routers zonder verkeersregistratie, bijvoorbeeld in accesspointmodus. Zulke routers melden helemaal geen tellers per adres, waardoor bedrade apparaten nooit een live-signaal konden tonen en als offline werden gemeld terwijl ze duidelijk aanwezig waren. Aanwezigheid valt daar nu terug op de routertabellen, met presenceSource 'arp'. Routers die wel tellen, houden de strikte regels.",
-				"fr": "Corrige la détection de présence sur les routeurs qui ne comptabilisent pas le trafic, par exemple en mode point d'accès. Ces routeurs ne fournissent aucun compteur par adresse, si bien que les appareils filaires ne pouvaient jamais produire de signal en direct et étaient signalés hors ligne alors qu'ils étaient manifestement présents. La présence s'appuie désormais sur les tables du routeur, avec presenceSource « arp ». Les routeurs qui comptabilisent gardent les règles strictes.",
-				"it": "Corregge il rilevamento della presenza su router che non contabilizzano il traffico, ad esempio in modalità access point. Tali router non forniscono alcun contatore per indirizzo, quindi i dispositivi cablati non potevano mai mostrare un segnale dal vivo ed erano segnalati offline pur essendo evidentemente presenti. La presenza si basa ora sulle tabelle del router, con presenceSource 'arp'. I router che contabilizzano mantengono le regole rigorose.",
-				"es": "Corrige la detección de presencia en routers que no contabilizan tráfico, por ejemplo en modo punto de acceso. Esos routers no ofrecen contadores por dirección, de modo que los dispositivos por cable nunca podían mostrar una señal en vivo y se informaban como desconectados pese a estar presentes. La presencia se apoya ahora en las tablas del router, con presenceSource 'arp'. Los routers que sí contabilizan mantienen las reglas estrictas.",
-				"pl": "Naprawia wykrywanie obecności na routerach bez rozliczania ruchu, na przykład w trybie punktu dostępowego. Takie routery nie podają żadnych liczników na adres, więc urządzenia przewodowe nigdy nie mogły dać sygnału na żywo i były zgłaszane jako offline mimo wyraźnej obecności. Obecność opiera się tam teraz na tablicach routera, z presenceSource „arp”. Routery z rozliczaniem zachowują ścisłe reguły.",
-				"uk": "Виправлено визначення присутності на маршрутизаторах без обліку трафіку, наприклад у режимі точки доступу. Такі пристрої взагалі не надають лічильників за адресами, тож дротові пристрої ніколи не могли дати «живий» сигнал і позначались офлайн, попри очевидну присутність. Тепер присутність спирається на таблиці маршрутизатора, з presenceSource «arp». Там, де облік є, правила залишаються суворими.",
-				"zh-cn": "修复了在不统计流量的路由器（例如接入点模式）上的在线检测。这类路由器完全不提供按地址的计数，因此有线设备永远无法产生实时信号，明明在线却被报告为离线。现在此类路由器改用路由表判断在线，presenceSource 为 arp。具备流量统计的路由器仍沿用严格规则。"
-			},
-			"0.5.1": {
-				"en": "Fixes an InfluxDB bookkeeping bug: if a datapoint could not be switched off because the InfluxDB instance did not answer, it was dropped from the managed list anyway and kept logging forever, unnoticed. Such datapoints now stay on the list and are retried on the next start. Also answers messages that carry no command, so a caller is never left waiting.",
-				"de": "Behebt einen Buchhaltungsfehler beim InfluxDB-Logging: Ließ sich ein Datenpunkt nicht abschalten, weil die InfluxDB-Instanz nicht antwortete, flog er trotzdem aus der Merkliste und protokollierte unbemerkt für immer weiter. Solche Datenpunkte bleiben nun auf der Liste und werden beim nächsten Start erneut versucht. Außerdem werden Nachrichten ohne Kommando beantwortet, damit kein Aufrufer hängen bleibt.",
-				"ru": "Исправлена ошибка учёта при логировании в InfluxDB: если точку данных не удавалось отключить из-за отсутствия ответа от экземпляра InfluxDB, она всё равно удалялась из списка и продолжала незаметно записываться. Теперь такие точки остаются в списке и повторяются при следующем запуске. Также обрабатываются сообщения без команды, чтобы вызывающая сторона не зависала.",
-				"pt": "Corrige um erro de contabilidade no registo InfluxDB: se um ponto de dados não pudesse ser desligado porque a instância InfluxDB não respondeu, era removido da lista mesmo assim e continuava a registar indefinidamente. Esses pontos permanecem agora na lista e são tentados de novo no arranque seguinte. Mensagens sem comando passam a ser respondidas.",
-				"nl": "Lost een boekhoudfout in de InfluxDB-logging op: kon een datapunt niet worden uitgeschakeld omdat de InfluxDB-instantie niet antwoordde, dan verdween het toch uit de lijst en bleef ongemerkt loggen. Zulke datapunten blijven nu op de lijst en worden bij de volgende start opnieuw geprobeerd. Ook berichten zonder commando krijgen nu antwoord.",
-				"fr": "Corrige une erreur de suivi dans la journalisation InfluxDB : si un point de données ne pouvait pas être désactivé faute de réponse de l'instance InfluxDB, il était tout de même retiré de la liste et continuait d'être journalisé indéfiniment. Ces points restent désormais dans la liste et sont réessayés au démarrage suivant. Les messages sans commande reçoivent aussi une réponse.",
-				"it": "Corregge un errore di tracciamento nella registrazione InfluxDB: se un punto dati non poteva essere disattivato perché l'istanza InfluxDB non rispondeva, veniva comunque rimosso dall'elenco e continuava a registrare per sempre. Tali punti restano ora nell'elenco e vengono ritentati al successivo avvio. Anche i messaggi senza comando ricevono una risposta.",
-				"es": "Corrige un error de registro contable en el logging de InfluxDB: si un punto de datos no podía desactivarse porque la instancia de InfluxDB no respondía, se eliminaba igualmente de la lista y seguía registrando para siempre. Esos puntos ahora permanecen en la lista y se reintentan en el siguiente arranque. También se responden los mensajes sin comando.",
-				"pl": "Naprawia błąd ewidencji w logowaniu do InfluxDB: jeśli punktu danych nie dało się wyłączyć, bo instancja InfluxDB nie odpowiedziała, i tak znikał z listy i logował dalej bez końca. Takie punkty pozostają teraz na liście i są ponawiane przy następnym starcie. Odpowiadane są też komunikaty bez polecenia.",
-				"uk": "Виправлено помилку обліку в логуванні до InfluxDB: якщо точку даних не вдавалося вимкнути через відсутність відповіді від екземпляра InfluxDB, вона все одно зникала зі списку й непомітно продовжувала записуватись. Тепер такі точки залишаються у списку та повторюються під час наступного запуску. Також обробляються повідомлення без команди.",
-				"zh-cn": "修复 InfluxDB 记录的账目错误：若因 InfluxDB 实例无响应而无法关闭某个数据点，它仍会被移出管理列表并在无人察觉的情况下持续记录。此类数据点现在会保留在列表中，并在下次启动时重试。另外，不带命令的消息也会得到回复，调用方不再无限等待。"
 			}
 		},
 		"titleLang": {
@@ -113,6 +100,7 @@
 		"mode": "daemon",
 		"type": "network",
 		"compact": true,
+		"messagebox": true,
 		"connectionType": "local",
 		"dataSource": "poll",
 		"adminUI": {

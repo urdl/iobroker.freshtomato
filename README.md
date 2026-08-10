@@ -94,14 +94,14 @@ regenerating it.
 | Object | Contents |
 |---|---|
 | `info` | `connection`, `firmware`, `model`, `routerName`, `uptime`, `lastUpdate` |
-| `system` | CPU temperature, load averages, memory, swap, NVRAM usage, processes, CPU and bootloader details, `reboot` |
+| `system` | CPU temperature, CPU usage, load averages, memory, swap, NVRAM usage, processes, CPU and bootloader details, `reboot` |
 | `network.wan`, `network.wan2` … | IP, netmask, gateway, DNS, domain, host name, protocol, MAC, MTU, connected flag, connection uptime, DHCP lease remaining. Only the WANs reported as in use are created. |
 | `network.lan` | IP, netmask, MAC, gateway, bridge interface, DHCP range |
 | `wlan.2G`, `wlan.5G` | SSID, channel, centre frequency, channel width, maximum rate, noise floor, radio temperature, security mode, encryption, hidden flag, client count |
 | `interfaces.<name>` | `rxBytes` and `txBytes` per interface |
 | `ports.<name>` | Link state, speed and duplex for each switch port |
 | `usb.<disk+partition>` | Vendor, product, disk, partition number, volume label, mount point, file system, total/free/used bytes, used percent, `attached`. One entry per mounted partition; unplugging keeps the last known size and only clears `attached`. |
-| `devices` | `count`, `wirelessCount` and `json` with the full device list |
+| `devices` | `count`, `wirelessCount`, `onlineCount`, `offlineCount` and `json` with the full device list |
 | `devices.<mac>` | IP, host name, interface, `online`, `presenceSource`, `lastSeen`, and for wireless clients the signal strength, link rates, band and connection time. Traffic counters when the device is selected, see below. |
 
 Device channels are keyed by MAC address, so a client keeps its object when its
@@ -261,10 +261,10 @@ want:
 
 | Group | Datapoints |
 |---|---|
-| System | CPU temperature, load averages, free/available/total memory |
+| System | CPU temperature, CPU usage, load averages, free/available/total memory |
 | Network | interface `rxBytes`/`txBytes`, WAN `connected` |
 | WLAN | per-band client count, radio temperature, noise floor |
-| Device counts | `devices.count`, `devices.wirelessCount` |
+| Device counts | `devices.count`, `devices.wirelessCount`, `devices.onlineCount`, `devices.offlineCount` |
 
 Per-device traffic is deliberately not offered here: it is dynamic and would add
 a time series per device. Enable those individually on the device's own
@@ -356,6 +356,9 @@ to the upstream project, which targets a different range of devices.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### 0.8.2 (2026-08-10)
+* (U.R.D.L) Fixed: `common.messagebox` was never declared in `io-package.json`, so the InfluxDB instance dropdown (#50) never actually loaded, regardless of instance state
+
 ### 0.8.1 (2026-08-09)
 * (U.R.D.L) Fixed: the InfluxDB `deviceCounts` group was missing the `onlineCount`/`offlineCount` states added in 0.8.0
 
